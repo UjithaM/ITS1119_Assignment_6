@@ -4,7 +4,7 @@
     --primary: linear-gradient(90deg, #2CC56F 6.54%, #BEDC7C 92.06%);
     --font-color: #344767;
     --font-grey: #C7C7C7;
-    --accent-color: #3DB278;
+    --accent-color: #0D6EFD;
 }
 
 body{
@@ -16,16 +16,6 @@ body{
     background-color: #ffffff;
 }
 
-.logo{
-    font-family: "Krona One", sans-serif;
-    background: var(--primary);
-    color: transparent;
-    -webkit-background-clip: text;
-    font-size: 36px;
-    font-weight: 700;
-    margin-right: 80px;
-    text-shadow: 4px 4px 10px rgba(0, 0, 0, 0.15);
-}
 
 .nav-item{
     margin: 0 10px;
@@ -59,12 +49,9 @@ section{
     height: 100vh;
 }
 
-section:first-child{
-    height: 80vh;
-}
-
 #home{
     margin-top: 100px;
+    height: 80vh;
 }
 
 .card{
@@ -77,7 +64,7 @@ section:first-child{
 
 .card-title{
     color: var(--font-grey);
-    font-size: 20px;
+    font-size: 30px;
 }
 
 .count{
@@ -138,8 +125,7 @@ section:first-child{
 }
 
 .search input{
-    height: 50px;
-    width: 300px;
+    width: fit-content;
     text-indent: 30px;
     display: inline;
 }
@@ -181,10 +167,6 @@ section:first-child{
     border: none;
     padding: 10px 20px 10px 20px;
     border-radius: 10px;
-}
-
-#discount, #cash{
-    width: fit-content;
 }
 
 .order_btn{
