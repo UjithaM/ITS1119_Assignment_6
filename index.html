@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="assets/bootstrap-5.1.3-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/lib/bootstrap-5.1.3-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/style/style.css">
     <title>Assignment 06</title>
 </head>
@@ -368,11 +368,81 @@
     </div>
 </section>
 
-
-<script src="assets/bootstrap-5.1.3-dist/js/bootstrap.min.js">
-
-</script>
+<!--Link JS Dependencies-->
+<script src="assets/lib/bootstrap-5.1.3-dist/js/bootstrap.min.js"></script>
 <script src="assets/lib/jquery.min.js"></script>
-<script src="assets/script/script.js"></script>
+
+<!--link controller-->
+
+<!--manage Navigation-->
+<script>
+    $('#customer').css('display','none');
+    $('#item').css('display','none');
+    $('#order').css('display','none');
+    $('#place_order').css('display','none');
+
+    $('#navigation-bar>li').eq(0).on('click', () => {
+        $('#home').css('display','block');
+        $('#customer').css('display','none');
+        $('#item').css('display','none');
+        $('#order').css('display','none');
+        $('#place_order').css('display','none');
+    })
+
+    $('#navigation-bar>li').eq(1).on('click', () => {
+        $('#customer').css('display','block');
+        $('#home').css('display','none');
+        $('#item').css('display','none');
+        $('#order').css('display','none');
+        $('#place_order').css('display','none');
+    })
+    $('#link-customers').on('click', () => {
+        $('#customer').css('display','block');
+        $('#home').css('display','none');
+        $('#item').css('display','none');
+        $('#order').css('display','none');
+        $('#place_order').css('display','none');
+    })
+
+    $('#navigation-bar>li').eq(2).on('click', () => {
+        $('#item').css('display','block');
+        $('#home').css('display','none');
+        $('#customer').css('display','none');
+        $('#order').css('display','none');
+        $('#place_order').css('display','none');
+    })
+
+    $('#link-items').on('click', () => {
+        $('#item').css('display','block');
+        $('#home').css('display','none');
+        $('#customer').css('display','none');
+        $('#order').css('display','none');
+        $('#place_order').css('display','none');
+    })
+
+    $('#navigation-bar>li').eq(3).on('click', () => {
+        $('#order').css('display','block');
+        $('#home').css('display','none');
+        $('#item').css('display','none');
+        $('#customer').css('display','none');
+        $('#place_order').css('display','none');
+    })
+
+    $('#link-orders').on('click', () => {
+        $('#order').css('display','block');
+        $('#home').css('display','none');
+        $('#item').css('display','none');
+        $('#customer').css('display','none');
+        $('#place_order').css('display','none');
+    })
+
+    $('#navigation-bar>li').eq(4).on('click', () => {
+        $('#place_order').css('display','block');
+        $('#home').css('display','none');
+        $('#order').css('display','none');
+        $('#item').css('display','none');
+        $('#customer').css('display','none');
+    })
+</script>
 </body>
 </html>
