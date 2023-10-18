@@ -93,8 +93,8 @@
                             <input type="number" class="form-control" id="customerId">
                         </div>
                         <div class="mb-3">
-                            <label for="fullname" class="form-label">Full Name</label>
-                            <input type="text" class="form-control" id="fullname">
+                            <label for="fullName" class="form-label">Full Name</label>
+                            <input type="text" class="form-control" id="fullName">
                         </div>
                         <div class="mb-3">
                             <label for="address" class="form-label">Address</label>
@@ -104,7 +104,7 @@
                             <button type="button" class="btn btn-outline-success" id="customer_submit">Submit</button>
                             <button type="button" class="btn btn-outline-warning" id="customer_update">Update</button>
                             <button type="button" class="btn btn-outline-danger" id="customer_delete">Delete</button>
-                            <button type="reset" class="btn btn-outline-secondary">Reset</button>
+                            <button type="reset" class="btn btn-outline-secondary" id="customer-reset">Reset</button>
                         </div>
                     </form>
                 </div>
@@ -373,6 +373,7 @@
 <script src="assets/lib/jquery.min.js"></script>
 
 <!--link controller-->
+<script type="module" src="controller/CustomerController.js"></script>
 
 <!--manage Navigation-->
 <script>
