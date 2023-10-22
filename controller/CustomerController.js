@@ -34,6 +34,20 @@ $('#customer_update').on("click", () => {
 
 });
 
+// customer delete
+$('#customer-delete').on("click", () => {
+    let customer_id = $("#customerId").val();
+
+    let index = customer_db.findIndex(item => item.customer_id === customer_id);
+
+    customer_db.splice(index, 1);
+
+    loadCustomerData();
+
+    $('#customer-reset').click();
+});
+
+// customer details load
 $('#customer-table-body').on("click", "tr", function() {
     let customer_id = $(this).find(".customer_id").text();
     let full_name = $(this).find(".full_name").text();
