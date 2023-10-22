@@ -1,5 +1,5 @@
 import {ItemModel} from "../model/ItemModel.js";
-import {customer_db, item_db} from "../db/db.js";
+import {item_db} from "../db/db.js";
 
 // item submit
 $('#item-submit').on("click", () => {
@@ -37,6 +37,20 @@ $('#item-update').on("click", () => {
     $('#item-reset').click();
 });
 
+
+// Item delete
+$('#item-delete').on("click", () => {
+    let item_id = $('#itemId').val();
+
+    let index = item_db.findIndex(item => item.item_id === item_id);
+
+    item_db.splice(index, 1);
+
+    loadItemData();
+
+    $('#item-reset').click();
+});
+
 const loadItemData = () => {
     $('#iem-table-body').empty(); // make tbody empty
     item_db.map((item, index) => {
@@ -45,6 +59,7 @@ const loadItemData = () => {
     });
 };
 
+// table search
 $('#iem-table-body').on("click", "tr", function() {
     let item_id = $(this).find(".item_id").text();
     let description = $(this).find(".description").text();
