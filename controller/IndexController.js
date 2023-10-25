@@ -42,23 +42,16 @@ $('#link-items').on('click', () => {
     $('#place_order').css('display','none');
 })
 
-$('#navigation-bar>li').eq(3).on('click', () => {
-    $('#order').css('display','block');
-    $('#home').css('display','none');
-    $('#item').css('display','none');
-    $('#customer').css('display','none');
-    $('#place_order').css('display','none');
-})
 
 $('#link-orders').on('click', () => {
-    $('#order').css('display','block');
+    $('#place_order').css('display','block');
     $('#home').css('display','none');
+    $('#order').css('display','none');
     $('#item').css('display','none');
     $('#customer').css('display','none');
-    $('#place_order').css('display','none');
 })
 
-$('#navigation-bar>li').eq(4).on('click', () => {
+$('#navigation-bar>li').eq(3).on('click', () => {
     $('#place_order').css('display','block');
     $('#home').css('display','none');
     $('#order').css('display','none');
