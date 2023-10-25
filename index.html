@@ -14,9 +14,8 @@
             <a class="navbar-brand" href="#">
                 <img src="assets/image/Shop.png" width="30" height="30" alt="">
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="na vbar-toggler-icon"></span>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse container-fluid" id="navbarNav">
                 <ul class="navbar-nav" id="navigation-bar">
@@ -375,76 +374,7 @@
 <!--link controller-->
 <script type="module" src="controller/CustomerController.js"></script>
 <script type="module" src="controller/ItemController.js"></script>
+<script type="module" src="controller/IndexController.js"></script>
 
-<!--manage Navigation-->
-<script>
-    $('#customer').css('display','none');
-    $('#item').css('display','none');
-    $('#order').css('display','none');
-    $('#place_order').css('display','none');
-
-    $('#navigation-bar>li').eq(0).on('click', () => {
-        $('#home').css('display','block');
-        $('#customer').css('display','none');
-        $('#item').css('display','none');
-        $('#order').css('display','none');
-        $('#place_order').css('display','none');
-    })
-
-    $('#navigation-bar>li').eq(1).on('click', () => {
-        $('#customer').css('display','block');
-        $('#home').css('display','none');
-        $('#item').css('display','none');
-        $('#order').css('display','none');
-        $('#place_order').css('display','none');
-    })
-    $('#link-customers').on('click', () => {
-        $('#customer').css('display','block');
-        $('#home').css('display','none');
-        $('#item').css('display','none');
-        $('#order').css('display','none');
-        $('#place_order').css('display','none');
-    })
-
-    $('#navigation-bar>li').eq(2).on('click', () => {
-        $('#item').css('display','block');
-        $('#home').css('display','none');
-        $('#customer').css('display','none');
-        $('#order').css('display','none');
-        $('#place_order').css('display','none');
-    })
-
-    $('#link-items').on('click', () => {
-        $('#item').css('display','block');
-        $('#home').css('display','none');
-        $('#customer').css('display','none');
-        $('#order').css('display','none');
-        $('#place_order').css('display','none');
-    })
-
-    $('#navigation-bar>li').eq(3).on('click', () => {
-        $('#order').css('display','block');
-        $('#home').css('display','none');
-        $('#item').css('display','none');
-        $('#customer').css('display','none');
-        $('#place_order').css('display','none');
-    })
-
-    $('#link-orders').on('click', () => {
-        $('#order').css('display','block');
-        $('#home').css('display','none');
-        $('#item').css('display','none');
-        $('#customer').css('display','none');
-        $('#place_order').css('display','none');
-    })
-
-    $('#navigation-bar>li').eq(4).on('click', () => {
-        $('#place_order').css('display','block');
-        $('#home').css('display','none');
-        $('#order').css('display','none');
-        $('#item').css('display','none');
-        $('#customer').css('display','none');
-    })
-</script>
 </body>
 </html>
