@@ -28,9 +28,6 @@
                         <a class="nav-link" href="#item">Items</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#order">Orders</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" href="#place_order">Place Order</a>
                     </li>
                 </ul>
@@ -189,63 +186,6 @@
     </div>
 </section>
 
-<!-- order section -->
-<section id="order">
-    <div class="container">
-        <div class="row mb-5">
-            <div class="col">
-                <h3 class="header">Manage Orders</h3>
-            </div>
-        </div>
-        <div class="order_container">
-            <div class="row">
-                <div class="col col-lg-6 col-md-12 col-sm-12 col-12">
-                    <form>
-                        <div class="mb-3">
-                            <label for="orderId" class="form-label">Order ID</label>
-                            <input type="number" class="form-control" id="orderId">
-                        </div>
-                        <div class="mb-3">
-                            <label for="customer_Id" class="form-label">Customer Id</label>
-                            <select class="form-select" aria-label="Default select example" id="customer_Id">
-                                <option selected>select the customer</option>
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label for="date" class="form-label">Date</label>
-                            <input type="date" class="form-control" id="date">
-                        </div>
-                        <div class="mt-5">
-                            <button type="button" class="btn btn-outline-warning">Update</button>
-                            <button type="button" class="btn btn-outline-danger">Delete</button>
-                            <button type="reset" class="btn btn-outline-secondary">Reset</button>
-                        </div>
-                    </form>
-                </div>
-
-                <div class="col col-lg-6 col-md-12 col-sm-12 col-12 d-flex flex-column align-items-end">
-                    <div class="search mb-4 mt-4">
-                        <i class="fa-solid fa-magnifying-glass"></i>
-                        <input type="text" class="form-control" placeholder="Search">
-                        <button class="btn btn-outline-primary" style="height: 50px">Search</button>
-                        <button class="btn btn-primary place_order" id="place_order_btn">Place Order</button>
-                    </div>
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th scope="col">Order Id</th>
-                            <th scope="col">Customer Id</th>
-                            <th scope="col">Date</th>
-                        </tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
 <!-- place order section -->
 <section id="place_order">
     <div class="container">
@@ -357,7 +297,13 @@
                                 </div>
                             </div>
                             <div class="row justify-content-center mt-3">
-                                <button class="order_btn">Place Order</button>
+                                <button type="button" class="btn btn-success">Place Order</button>
+                            </div>
+                            <div class="row justify-content-center mt-3">
+                                <button type="button" id="order-update-button" class="btn btn-warning">Update</button>
+                            </div>
+                            <div class="row justify-content-center mt-3">
+                                <button type="button" id="order-delete-button" class="btn btn-danger">Delete</button>
                             </div>
                         </div>
                     </div>
@@ -375,6 +321,7 @@
 <script type="module" src="controller/CustomerController.js"></script>
 <script type="module" src="controller/ItemController.js"></script>
 <script type="module" src="controller/IndexController.js"></script>
+<script type="module" src="controller/PlaceOrderController.js"></script>
 
 </body>
 </html>
