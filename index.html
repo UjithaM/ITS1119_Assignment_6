@@ -86,7 +86,7 @@
                     <form>
                         <div class="mb-3">
                             <label for="customerId" class="form-label">Customer Id</label>
-                            <input type="number" class="form-control" id="customerId">
+                            <input type="text" class="form-control" id="customerId">
                         </div>
                         <div class="mb-3">
                             <label for="fullName" class="form-label">Full Name</label>
@@ -140,7 +140,7 @@
                     <form>
                         <div class="mb-3">
                             <label for="itemId" class="form-label">Item Id</label>
-                            <input type="number" class="form-control" id="itemId">
+                            <input type="text" class="form-control" id="itemId">
                         </div>
                         <div class="mb-3">
                             <label for="description" class="form-label">Description</label>
@@ -203,14 +203,13 @@
                             <div class="col col-lg-6 col-md-12 col-sm-12 col-12">
                                 <div>
                                     <label for="order_Id" class="form-label">Order ID</label>
-                                    <input type="number" class="form-control" id="order_Id">
+                                    <input type="text" class="form-control" id="order_Id">
                                 </div>
                             </div>
                             <div class="col col-lg-6 col-md-12 col-sm-12 col-12">
                                 <div>
-                                    <label for="custId" class="form-label">Customer Id</label>
-                                    <select class="form-select" aria-label="Default select example" id="custId">
-                                        <option selected>select the customer</option>
+                                    <label for="customerIdSelect" class="form-label">Customer Id</label>
+                                    <select class="form-select" aria-label="Default select example" id="customerIdSelect">
                                     </select>
                                 </div>
                             </div>
@@ -218,6 +217,12 @@
                                 <div>
                                     <label for="orderDate" class="form-label">Date</label>
                                     <input type="date" class="form-control" id="orderDate">
+                                </div>
+                            </div>
+                            <div class="col col-lg-6 col-md-12 col-sm-12 col-12">
+                                <div>
+                                    <label for="place_order_customer_name" class="form-label">Customer Name</label>
+                                    <input type="text" class="form-control" id="place_order_customer_name">
                                 </div>
                             </div>
                         </div>
@@ -230,14 +235,17 @@
                         <div class="row">
                             <div class="col col-lg-6 col-md-12 col-sm-12 col-12">
                                 <div>
-                                    <label for="item_Id" class="form-label">Item Id</label>
-                                    <select class="form-select" aria-label="Default select example" id="item_Id">
-                                        <option selected>select the item</option>
+                                    <label for="itemIdSelect" class="form-label">Item Id</label>
+                                    <select class="form-select" aria-label="Default select example" id="itemIdSelect">
                                     </select>
                                 </div>
                                 <div>
-                                    <label for="qtyOnHand" class="form-label">Qty On Hand</label>
-                                    <input type="number" class="form-control" id="qtyOnHand">
+                                    <label for="placeOrderQtyOnHand" class="form-label">Qty On Hand</label>
+                                    <input type="number" class="form-control" id="placeOrderQtyOnHand">
+                                </div>
+                                <div>
+                                    <label for="place_order_qty" class="form-label">Quantity</label>
+                                    <input type="number" class="form-control" id="place_order_qty">
                                 </div>
                             </div>
                             <div class="col col-lg-6 col-md-12 col-sm-12 col-12">
@@ -246,12 +254,12 @@
                                     <input type="text" class="form-control" id="desc">
                                 </div>
                                 <div>
-                                    <label for="quantity" class="form-label">Qty</label>
-                                    <input type="number" class="form-control" id="quantity">
+                                    <label for="place_order_unit_price" class="form-label">Unit Price</label>
+                                    <input type="number" class="form-control" id="place_order_unit_price">
                                 </div>
-                            </div>
-                            <div class="row justify-content-end mt-3">
-                                <button class="cart_btn">Add to Cart</button>
+                                <div class="row justify-content-end mt-5">
+                                    <button class="cart_btn">Add to Cart</button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -321,7 +329,7 @@
 <script type="module" src="controller/CustomerController.js"></script>
 <script type="module" src="controller/ItemController.js"></script>
 <script type="module" src="controller/IndexController.js"></script>
-<script type="module" src="controller/PlaceOrderController.js"></script>
+<script type="module" src="controller/OrderController.js"></script>
 
 </body>
 </html>
