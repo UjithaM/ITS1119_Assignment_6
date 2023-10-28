@@ -35,6 +35,20 @@ $('#add-cart-button').on('click', () => {
     let itemQuantity = $('#place_order_qty').val();
     let unitPrice = $('#place_order_unit_price').val();
 
+    for (const orderDetailsArrElement of orderDetailsArr) {
+        if (orderDetailsArrElement.itemId === itemId){
+            orderDetailsArrElement.quantity = itemQuantity;
+
+            $('#cart-table').empty();
+
+            for (const orderDetailsArrElement of orderDetailsArr) {
+                let record = `<tr><td class="Item Id">${orderDetailsArrElement.itemId}</td><td class="Unit Price">${orderDetailsArrElement.unitPrice}</td><td class="Qty">${orderDetailsArrElement.quantity}</td></tr>`;
+                $("#cart-table").append(record);
+            }
+            return;
+        }
+    }
+
     let order_obj = new OrderDetailsModel(itemId, itemQuantity, unitPrice);
 
     orderDetailsArr.push(order_obj);
