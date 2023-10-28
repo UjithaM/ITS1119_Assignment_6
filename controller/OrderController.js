@@ -2,7 +2,7 @@ import {customer_db} from "../db/db.js";
 import {item_db} from "../db/db.js";
 import {order_db} from "../db/db.js";
 import {OrderModel} from "../model/OrderModel.js";
-import {OrderDetails} from "../model/OrderDetails.js";
+import {OrderDetailsModel} from "../model/OrderDetailsModel.js";
 
 $('#order-update-button').css('display','none');
 $('#order-delete-button').css('display','none');
@@ -35,7 +35,7 @@ $('#add-cart-button').on('click', () => {
     let itemQuantity = $('#place_order_qty').val();
     let unitPrice = $('#place_order_unit_price').val();
 
-    let order_obj = new OrderDetails(itemId, itemQuantity, unitPrice);
+    let order_obj = new OrderDetailsModel(itemId, itemQuantity, unitPrice);
 
     orderDetailsArr.push(order_obj);
 
