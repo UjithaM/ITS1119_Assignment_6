@@ -71,3 +71,40 @@ $('#iem-table-body').on("click", "tr", function() {
     $('#unit-price').val(unit_price);
     $('#qty').val(qty);
 });
+
+const genNextItemId = () => {
+
+    if (item_db.length === 0) {
+        return "IID-0001";
+    } else {
+        // Find the last order ID in the array
+        const lastOrderId = item_db[item_db.length - 1].item_id;
+
+        const lastItemNumber = parseInt(lastOrderId.split('-')[1]);
+        let nextItemNumber = lastItemNumber + 1;
+        nextItemNumber = nextItemNumber.toString();
+
+
+        if (nextItemNumber.length === 1){
+            return `IID-000${nextItemNumber}`;
+        } else if(nextItemNumber.length === 2) {
+            return`IID-00${nextItemNumber}`;
+        } else if(nextItemNumber.length === 3){
+            return`IID-0${nextItemNumber}`;
+        }else {
+            return`IID-${nextItemNumber}`;
+        }
+    }
+}
+
+function itemClicked() {
+    $('#itemId').val(genNextItemId());
+}
+
+$('#navigation-bar>li').eq(2).on('click', () => {
+    itemClicked();
+})
+
+$('#link-items').on('click', () => {
+    itemClicked();
+})
