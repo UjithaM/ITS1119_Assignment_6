@@ -38,7 +38,7 @@ $('#add-cart-button').on('click', () => {
 
 
     for (const orderDetailsArrElement of orderDetailsArr) {
-        if (orderDetailsArrElement.itemId === itemId){
+        if (orderDetailsArrElement.itemId === itemId) {
             orderDetailsArrElement.quantity = itemQuantity;
 
             $('#cart-table').empty();
@@ -47,6 +47,13 @@ $('#add-cart-button').on('click', () => {
                 let record = `<tr><td class="Item Id">${orderDetailsArrElement.itemId}</td><td class="Description">${orderDetailsArrElement.description}</td><td class="Unit Price">${orderDetailsArrElement.unitPrice}</td><td class="Qty">${orderDetailsArrElement.quantity}</td></tr>`;
                 $("#cart-table").append(record);
             }
+            let total = 0;
+
+            for (const orderDetailsArrElement of orderDetailsArr) {
+                total += (orderDetailsArrElement.unitPrice * orderDetailsArrElement.quantity)
+            }
+            console.log(total);
+            $('#net-total').text(total);
             return;
         }
     }
@@ -61,6 +68,14 @@ $('#add-cart-button').on('click', () => {
         let record = `<tr><td class="Item Id">${orderDetailsArrElement.itemId}</td><td class="Description">${orderDetailsArrElement.description}</td><td class="Unit Price">${orderDetailsArrElement.unitPrice}</td><td class="Qty">${orderDetailsArrElement.quantity}</td></tr>`;
         $("#cart-table").append(record);
     }
+
+    let total = 0;
+
+    for (const orderDetailsArrElement of orderDetailsArr) {
+        total += (orderDetailsArrElement.unitPrice * orderDetailsArrElement.quantity)
+    }
+    console.log(total);
+    $('#net-total').text(total);
 
 });
 
@@ -86,35 +101,23 @@ const genNextOrderId = () => {
 
         // Extract the numeric part and increment it
         const lastOrderNumber = parseInt(lastOrderId.split('-')[1]);
-        const nextOrderNumber = lastOrderNumber + 1;
+        let nextOrderNumber = lastOrderNumber + 1;
+        nextOrderNumber = nextOrderNumber.toString();
 
-        var nextOrderId = "";
 
-        console.log(nextOrderNumber);
-
-        if (digits_count(lastOrderNumber) === 1){
-            return nextOrderId = `OID-000${nextOrderNumber.toString()}`;
-        } else if(digits_count(lastOrderNumber) === 2) {
-            return nextOrderId = `OID-00${nextOrderNumber.toString()}`;
-        } else if(digits_count(lastOrderNumber) === 3){
-            return nextOrderId = `OID-0${nextOrderNumber.toString()}`;
+        if (nextOrderNumber.toString().length === 1){
+            return `OID-000${nextOrderNumber.toString()}`;
+        } else if(nextOrderNumber.toString().length === 2) {
+            return`OID-00${nextOrderNumber.toString()}`;
+        } else if(nextOrderNumber.toString().length === 3){
+            return`OID-0${nextOrderNumber.toString()}`;
         }else {
-            return nextOrderId = `OID-${nextOrderNumber.toString()}`;
+            return`OID-${nextOrderNumber.toString()}`;
         }
   }
 
 }
-function digits_count(n) {
-    var count = 0;
-    if (n >= 1) ++count;
 
-    while (n / 10 >= 1) {
-        n /= 10;
-        ++count;
-    }
-
-    return count;
-}
 function placeOrderClicked() {
     $('#order_Id').val(genNextOrderId());
 
