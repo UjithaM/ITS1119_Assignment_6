@@ -1,6 +1,4 @@
-import {customer_db} from "../db/db.js";
-import {item_db} from "../db/db.js";
-import {order_db} from "../db/db.js";
+import {customer_db, item_db, order_db} from "../db/db.js";
 import {OrderModel} from "../model/OrderModel.js";
 import {OrderDetailsModel} from "../model/OrderDetailsModel.js";
 
@@ -52,8 +50,8 @@ $('#add-cart-button').on('click', () => {
             for (const orderDetailsArrElement of orderDetailsArr) {
                 total += (orderDetailsArrElement.unitPrice * orderDetailsArrElement.quantity)
             }
-            console.log(total);
             $('#net-total').text(total);
+            $('#sub-total').text(calculateDiscountedPrice(total , $('#discount').val()));
             return;
         }
     }
@@ -74,8 +72,8 @@ $('#add-cart-button').on('click', () => {
     for (const orderDetailsArrElement of orderDetailsArr) {
         total += (orderDetailsArrElement.unitPrice * orderDetailsArrElement.quantity)
     }
-    console.log(total);
     $('#net-total').text(total);
+    $('#sub-total').text(calculateDiscountedPrice(total , $('#discount').val()));
 
 });
 
@@ -138,3 +136,13 @@ function placeOrderClicked() {
     });
     $("#itemIdSelect").append(`<option selected>select the Item</option>`);
 }
+function calculateDiscountedPrice(originalPrice, discountPercentage) {
+    console.log(originalPrice);
+    if (discountPercentage === null || discountPercentage === 0)return originalPrice;
+    const discountAmount = (originalPrice * discountPercentage) / 100;
+    return originalPrice - discountAmount;
+}
+
+$('#discount').on('input', () => {
+    $('#sub-total').text(calculateDiscountedPrice($('#net-total').text(), $('#discount').val()));
+});
