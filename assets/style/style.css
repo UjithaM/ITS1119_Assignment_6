@@ -176,6 +176,9 @@ section{
     padding: 10px 20px 10px 20px;
     border-radius: 10px;
 }
+.net_total, .sub_total {
+    font-size: 1.8rem;
+}
 
 @media all and (max-width: 992px) {
     .chart-card div{
@@ -200,5 +203,8 @@ section{
 @media all and (max-width: 576px) {
     .chart-card{
         display: none;
+    }
+    .net_total, .sub_total {
+        font-size: 1.2rem;
     }
 }
