@@ -34,6 +34,8 @@ $('#add-cart-button').on('click', () => {
     let itemId = $('#itemIdSelect').val();
     let itemQuantity = $('#place_order_qty').val();
     let unitPrice = $('#place_order_unit_price').val();
+    let description = $('#desc').val();
+
 
     for (const orderDetailsArrElement of orderDetailsArr) {
         if (orderDetailsArrElement.itemId === itemId){
@@ -42,21 +44,21 @@ $('#add-cart-button').on('click', () => {
             $('#cart-table').empty();
 
             for (const orderDetailsArrElement of orderDetailsArr) {
-                let record = `<tr><td class="Item Id">${orderDetailsArrElement.itemId}</td><td class="Unit Price">${orderDetailsArrElement.unitPrice}</td><td class="Qty">${orderDetailsArrElement.quantity}</td></tr>`;
+                let record = `<tr><td class="Item Id">${orderDetailsArrElement.itemId}</td><td class="Description">${orderDetailsArrElement.description}</td><td class="Unit Price">${orderDetailsArrElement.unitPrice}</td><td class="Qty">${orderDetailsArrElement.quantity}</td></tr>`;
                 $("#cart-table").append(record);
             }
             return;
         }
     }
 
-    let order_obj = new OrderDetailsModel(itemId, itemQuantity, unitPrice);
+    let order_obj = new OrderDetailsModel(itemId, itemQuantity, unitPrice, description);
 
     orderDetailsArr.push(order_obj);
 
     $('#cart-table').empty();
 
     for (const orderDetailsArrElement of orderDetailsArr) {
-        let record = `<tr><td class="Item Id">${orderDetailsArrElement.itemId}</td><td class="Unit Price">${orderDetailsArrElement.unitPrice}</td><td class="Qty">${orderDetailsArrElement.quantity}</td></tr>`;
+        let record = `<tr><td class="Item Id">${orderDetailsArrElement.itemId}</td><td class="Description">${orderDetailsArrElement.description}</td><td class="Unit Price">${orderDetailsArrElement.unitPrice}</td><td class="Qty">${orderDetailsArrElement.quantity}</td></tr>`;
         $("#cart-table").append(record);
     }
 
