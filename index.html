@@ -274,6 +274,7 @@
                             <thead>
                             <tr>
                                 <th scope="col">Item Id</th>
+                                <th scope="col">Description</th>
                                 <th scope="col">Unit Price</th>
                                 <th scope="col">Qty</th>
                             </tr>
@@ -287,6 +288,14 @@
                     <div class="container">
                         <div class="row">
                             <div class="col">
+                                <div class="net_total">
+                                    <span>Net Total : </span>
+                                    <span>0/=</span>
+                                </div>
+                                <div class="sub_total">
+                                    <span>Sub Total : </span>
+                                    <span>0/=</span>
+                                </div>
                                 <div>
                                     <label for="discount" class="form-label">Discount</label>
                                     <input type="number" class="form-control" id="discount">
@@ -295,13 +304,9 @@
                                     <label for="cash" class="form-label">Cash</label>
                                     <input type="number" class="form-control" id="cash">
                                 </div>
-                                <div class="net_total">
-                                    <span>Net Total : </span>
-                                    <span>0/=</span>
-                                </div>
-                                <div class="sub_total">
-                                    <span>Sub Total : </span>
-                                    <span>0/=</span>
+                                <div>
+                                    <label for="Balance" class="form-label">Balance</label>
+                                    <input type="number" class="form-control" id="Balance">
                                 </div>
                             </div>
                             <div class="row justify-content-center mt-3">
