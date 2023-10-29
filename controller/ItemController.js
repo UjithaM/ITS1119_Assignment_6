@@ -16,6 +16,7 @@ $('#item-submit').on("click", () => {
     loadItemData();
 
     $('#item-reset').click();
+    $('#itemId').val(genNextItemId());
 });
 
 // item update
@@ -35,6 +36,7 @@ $('#item-update').on("click", () => {
     loadItemData();
 
     $('#item-reset').click();
+    $('#itemId').val(genNextItemId());
 });
 
 
@@ -49,6 +51,7 @@ $('#item-delete').on("click", () => {
     loadItemData();
 
     $('#item-reset').click();
+    $('#itemId').val(genNextItemId());
 });
 
 const loadItemData = () => {
