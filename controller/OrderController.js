@@ -49,9 +49,8 @@ $('#add-cart-button').on('click', () => {
 
             for (const orderDetailsArrElement of orderDetailsArr) {
                 total += (orderDetailsArrElement.unitPrice * orderDetailsArrElement.quantity)
-            }
-            $('#net-total').text(total);
-            $('#sub-total').text(calculateDiscountedPrice(total , $('#discount').val()));
+            }$('#net-total').text(total.toFixed(2));
+            $('#sub-total').text(calculateDiscountedPrice(total , $('#discount').val()).toFixed(2));
             return;
         }
     }
@@ -72,8 +71,8 @@ $('#add-cart-button').on('click', () => {
     for (const orderDetailsArrElement of orderDetailsArr) {
         total += (orderDetailsArrElement.unitPrice * orderDetailsArrElement.quantity)
     }
-    $('#net-total').text(total);
-    $('#sub-total').text(calculateDiscountedPrice(total , $('#discount').val()));
+    $('#net-total').text(total.toFixed(2));
+    $('#sub-total').text(calculateDiscountedPrice(total , $('#discount').val()).toFixed(2));
 
 });
 
@@ -144,5 +143,5 @@ function calculateDiscountedPrice(originalPrice, discountPercentage) {
 }
 
 $('#discount').on('input', () => {
-    $('#sub-total').text(calculateDiscountedPrice($('#net-total').text(), $('#discount').val()));
+    $('#sub-total').text(calculateDiscountedPrice($('#net-total').text(), $('#discount').val()).toFixed(2));
 });
