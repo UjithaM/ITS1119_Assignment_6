@@ -37,7 +37,9 @@ $('#add-cart-button').on('click', () => {
 
     for (const orderDetailsArrElement of orderDetailsArr) {
         if (orderDetailsArrElement.itemId === itemId) {
-            orderDetailsArrElement.quantity = itemQuantity;
+            let quantity = parseInt(orderDetailsArrElement.quantity);
+            quantity += parseInt(itemQuantity);
+            orderDetailsArrElement.quantity = quantity;
 
             $('#cart-table').empty();
 
@@ -51,6 +53,7 @@ $('#add-cart-button').on('click', () => {
                 total += (orderDetailsArrElement.unitPrice * orderDetailsArrElement.quantity)
             }$('#net-total').text(total.toFixed(2));
             $('#sub-total').text(calculateDiscountedPrice(total , $('#discount').val()).toFixed(2));
+            itemClear();
             return;
         }
     }
@@ -73,6 +76,7 @@ $('#add-cart-button').on('click', () => {
     }
     $('#net-total').text(total.toFixed(2));
     $('#sub-total').text(calculateDiscountedPrice(total , $('#discount').val()).toFixed(2));
+    itemClear();
 
 });
 
@@ -145,3 +149,11 @@ function calculateDiscountedPrice(originalPrice, discountPercentage) {
 $('#discount').on('input', () => {
     $('#sub-total').text(calculateDiscountedPrice($('#net-total').text(), $('#discount').val()).toFixed(2));
 });
+
+function itemClear() {
+    $('#itemIdSelect').val("select the Item");
+    $('#place_order_qty').val("");
+    $('#place_order_unit_price').val("");
+    $('#desc').val("");
+    $('#placeOrderQtyOnHand').val("");
+}
