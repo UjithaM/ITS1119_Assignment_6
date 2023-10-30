@@ -13,6 +13,7 @@ $('#customer_submit').on("click", () => {
     customer_db.push(customer_obj);
     loadCustomerData();
     $('#customer-reset').click();
+    $('#customerId').val(genNextCustomerId());
 
 });
 
@@ -31,6 +32,7 @@ $('#customer_update').on("click", () => {
     loadCustomerData();
 
     $('#customer-reset').click();
+    $('#customerId').val(genNextCustomerId());
 
 });
 
@@ -45,6 +47,7 @@ $('#customer-delete').on("click", () => {
     loadCustomerData();
 
     $('#customer-reset').click();
+    $('#customerId').val(genNextCustomerId());
 });
 
 // customer details load
@@ -65,3 +68,35 @@ const loadCustomerData = () => {
         $("#customer-table-body").append(record);
     });
 };
+
+const genNextCustomerId = () => {
+
+    if (customer_db.length === 0) {
+        return "CID-0001";
+    } else {
+        const lastCustomerID = customer_db[customer_db.length - 1].customer_id;
+
+        const lastCustomerNumber = parseInt(lastCustomerID.split('-')[1]);
+        let nextCustomerNumber = lastCustomerNumber + 1;
+        nextCustomerNumber = nextCustomerNumber.toString();
+
+
+        if (nextCustomerNumber.length === 1){
+            return `CID-000${nextCustomerNumber}`;
+        } else if(nextCustomerNumber.length === 2) {
+            return`CID-00${nextCustomerNumber}`;
+        } else if(nextCustomerNumber.length === 3){
+            return`CID-0${nextCustomerNumber}`;
+        }else {
+            return`CID-${nextCustomerNumber}`;
+        }
+    }
+}
+
+$('#navigation-bar>li').eq(1).on('click', () => {
+    $('#customerId').val(genNextCustomerId());
+})
+
+$('#link-customers').on('click', () => {
+    $('#customerId').val(genNextCustomerId());
+})
