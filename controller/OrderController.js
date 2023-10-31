@@ -8,6 +8,7 @@ $('#desc').prop('disabled', true);
 $('#placeOrderQtyOnHand').prop('disabled', true);
 $('#place_order_unit_price').prop('disabled', true);
 $('#place_order_customer_name').prop('disabled', true);
+$('#Balance').prop('disabled', true);
 
 
 var orderDetailsArr =[];
@@ -156,4 +157,18 @@ function itemClear() {
     $('#place_order_unit_price').val("");
     $('#desc').val("");
     $('#placeOrderQtyOnHand').val("");
+}
+
+$('#cash').on('input', () => {
+    $('#Balance').text(calculateBalance());
+});
+
+function calculateBalance() {
+    let subtotal = parseInt($('#sub-total').text());
+    let cash = $('#cash').val();
+    if (subtotal >= cash){
+        return 0;
+    }else {
+        return cash - subtotal;
+    }
 }
