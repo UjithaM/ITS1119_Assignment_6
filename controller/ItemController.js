@@ -80,7 +80,6 @@ const genNextItemId = () => {
     if (item_db.length === 0) {
         return "IID-0001";
     } else {
-        // Find the last order ID in the array
         const lastOrderId = item_db[item_db.length - 1].item_id;
 
         const lastItemNumber = parseInt(lastOrderId.split('-')[1]);

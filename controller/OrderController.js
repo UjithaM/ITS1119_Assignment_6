@@ -23,9 +23,20 @@ $('#navigation-bar>li').eq(3).on('click', () => {
     placeOrderClicked();
 });
 $('#order-place-order-button').on('click', () => {
+    let orderId = $('#order_Id').val();
+    let orderDate = $('#orderDate').val();
+    let customerId = $('#customerIdSelect').val();
+    let netTotal = $('#net-total').text();
+    let subTotal = $('#sub-total').text();
+    let discount = $('#discount').val();
+    let cash = $('#cash').val();
 
-    let order_obj = new OrderModel("OID-0022", "","","");
+
+
+    let order_obj = new OrderModel(orderId, orderDate,customerId,orderDetailsArr, netTotal, subTotal, discount, cash);
     order_db.push(order_obj);
+
+    orderDetailsClear();
 
 });
 
@@ -45,7 +56,7 @@ $('#add-cart-button').on('click', () => {
             $('#cart-table').empty();
 
             for (const orderDetailsArrElement of orderDetailsArr) {
-                let record = `<tr><td class="Item Id">${orderDetailsArrElement.itemId}</td><td class="Description">${orderDetailsArrElement.description}</td><td class="Unit Price">${orderDetailsArrElement.unitPrice}</td><td class="Qty">${orderDetailsArrElement.quantity}</td></tr>`;
+                let record = `<tr><td class="item_id">${orderDetailsArrElement.itemId}</td><td class="Description">${orderDetailsArrElement.description}</td><td class="unit_price">${orderDetailsArrElement.unitPrice}</td><td class="Qty">${orderDetailsArrElement.quantity}</td></tr>`;
                 $("#cart-table").append(record);
             }
             let total = 0;
@@ -66,7 +77,7 @@ $('#add-cart-button').on('click', () => {
     $('#cart-table').empty();
 
     for (const orderDetailsArrElement of orderDetailsArr) {
-        let record = `<tr><td class="Item Id">${orderDetailsArrElement.itemId}</td><td class="Description">${orderDetailsArrElement.description}</td><td class="Unit Price">${orderDetailsArrElement.unitPrice}</td><td class="Qty">${orderDetailsArrElement.quantity}</td></tr>`;
+        let record = `<tr><td class="item_id">${orderDetailsArrElement.itemId}</td><td class="Description">${orderDetailsArrElement.description}</td><td class="unit_price">${orderDetailsArrElement.unitPrice}</td><td class="Qty">${orderDetailsArrElement.quantity}</td></tr>`;
         $("#cart-table").append(record);
     }
 
@@ -99,7 +110,7 @@ const genNextOrderId = () => {
         return "OID-0001";
     } else {
         // Find the last order ID in the array
-        const lastOrderId = order_db[order_db.length - 1].orderID;
+        const lastOrderId = order_db[order_db.length - 1].orderId;
 
         // Extract the numeric part and increment it
         const lastOrderNumber = parseInt(lastOrderId.split('-')[1]);
@@ -141,7 +152,6 @@ function placeOrderClicked() {
     $("#itemIdSelect").append(`<option selected>select the Item</option>`);
 }
 function calculateDiscountedPrice(originalPrice, discountPercentage) {
-    console.log(originalPrice);
     if (discountPercentage === null || discountPercentage === 0)return originalPrice;
     const discountAmount = (originalPrice * discountPercentage) / 100;
     return originalPrice - discountAmount;
@@ -172,3 +182,98 @@ function calculateBalance() {
         return cash - subtotal;
     }
 }
+$('#order_Id').on('keypress', (event) => {
+    let orderId = $('#order_Id').val();
+    if (event.key === 'Enter') {
+
+        let index = order_db.findIndex(item => item.orderId === orderId);
+
+        let order_obj = order_db[index];
+
+        if (order_obj != null) {
+            $('#customerIdSelect').val(order_obj.customerId);
+
+            let index = customer_db.findIndex(item => item.customer_id === order_obj.customerId);
+            $("#place_order_customer_name").val(customer_db[index].full_name);
+
+            for (const orderDetailsArrElement of order_obj.orderDetailsArr) {
+                let record = `<tr><td class="item_id">${orderDetailsArrElement.itemId}</td><td class="Description">${orderDetailsArrElement.description}</td><td class="unit_price">${orderDetailsArrElement.unitPrice}</td><td class="Qty">${orderDetailsArrElement.quantity}</td></tr>`;
+                $("#cart-table").append(record);
+            }
+
+            $('#net-total').text(order_obj.netTotal);
+            $('#sub-total').text(order_obj.subTotal);
+            $('#discount').val(order_obj.discount);
+            $('#cash').val(order_obj.cash);
+
+            $('#Balance').text(calculateBalance());
+
+            $('#order-update-button').css('display', 'block');
+            $('#order-delete-button').css('display', 'block');
+            $('#order-place-order-button').css('display', 'none');
+        }
+
+    }else {
+        $('#order-update-button').css('display','none');
+        $('#order-delete-button').css('display','none');
+        $('#order-place-order-button').css('display','block');
+    }
+
+});
+
+function orderDetailsClear() {
+    $('#order_Id').val(genNextOrderId());
+    $('#customerIdSelect').val("select the customer");
+    $('#place_order_customer_name').val("");
+    $('#net-total').text("0");
+    $('#sub-total').text("0");
+    $('#discount').val("");
+    $('#cash').val("");
+    $('#Balance').text("0");
+    $('#cart-table').empty();
+    itemClear();
+    $('#order-update-button').css('display','none');
+    $('#order-delete-button').css('display','none');
+    $('#order-place-order-button').css('display','block');
+}
+
+$('#cart-table').on("click", "tr", function() {
+    let item_id = $(this).find(".item_id").text();
+    let description = $(this).find(".Description").text();
+    let unit_price = $(this).find(".unit_price").text();
+    let qty = $(this).find(".Qty").text();
+
+    $('#itemIdSelect').val(item_id);
+    $('#desc').val(description);
+    let index = item_db.findIndex(item => item.item_id === item_id);
+    $("#placeOrderQtyOnHand").val(item_db[index].qty);
+    $('#place_order_unit_price').val(unit_price);
+    $('#place_order_qty').val(qty);
+});
+
+$('#order-update-button').on('click', () => {
+    let orderId = $('#order_Id').val();
+    let orderDate = $('#orderDate').val();
+    let customerId = $('#customerIdSelect').val();
+    let netTotal = $('#net-total').text();
+    let subTotal = $('#sub-total').text();
+    let discount = $('#discount').val();
+    let cash = $('#cash').val();
+
+    let order_obj = new OrderModel(orderId, orderDate,customerId,orderDetailsArr, netTotal, subTotal, discount, cash);
+    let index = order_db.findIndex(item => item.orderId === orderId);
+
+    order_db[index] = order_obj;
+
+    orderDetailsClear();
+});
+
+$('#order-delete-button').on('click', () => {
+    let orderId = $('#order_Id').val();
+
+    let index = order_db.findIndex(item => item.orderId === orderId);
+
+    order_db.splice(index, 1);
+
+    orderDetailsClear();
+});
