@@ -46,50 +46,52 @@ $('#add-cart-button').on('click', () => {
     let unitPrice = $('#place_order_unit_price').val();
     let description = $('#desc').val();
 
+    if (itemValidations()) {
 
-    for (const orderDetailsArrElement of orderDetailsArr) {
-        if (orderDetailsArrElement.itemId === itemId) {
-            let quantity = parseInt(orderDetailsArrElement.quantity);
-            quantity += parseInt(itemQuantity);
-            orderDetailsArrElement.quantity = quantity;
+        for (const orderDetailsArrElement of orderDetailsArr) {
+            if (orderDetailsArrElement.itemId === itemId) {
+                let quantity = parseInt(orderDetailsArrElement.quantity);
+                quantity += parseInt(itemQuantity);
+                orderDetailsArrElement.quantity = quantity;
 
-            $('#cart-table').empty();
+                $('#cart-table').empty();
 
-            for (const orderDetailsArrElement of orderDetailsArr) {
-                let record = `<tr><td class="item_id">${orderDetailsArrElement.itemId}</td><td class="Description">${orderDetailsArrElement.description}</td><td class="unit_price">${orderDetailsArrElement.unitPrice}</td><td class="Qty">${orderDetailsArrElement.quantity}</td></tr>`;
-                $("#cart-table").append(record);
+                for (const orderDetailsArrElement of orderDetailsArr) {
+                    let record = `<tr><td class="item_id">${orderDetailsArrElement.itemId}</td><td class="Description">${orderDetailsArrElement.description}</td><td class="unit_price">${orderDetailsArrElement.unitPrice}</td><td class="Qty">${orderDetailsArrElement.quantity}</td></tr>`;
+                    $("#cart-table").append(record);
+                }
+                let total = 0;
+
+                for (const orderDetailsArrElement of orderDetailsArr) {
+                    total += (orderDetailsArrElement.unitPrice * orderDetailsArrElement.quantity)
+                }
+                $('#net-total').text(total.toFixed(2));
+                $('#sub-total').text(calculateDiscountedPrice(total, $('#discount').val()).toFixed(2));
+                itemClear();
+                return;
             }
-            let total = 0;
-
-            for (const orderDetailsArrElement of orderDetailsArr) {
-                total += (orderDetailsArrElement.unitPrice * orderDetailsArrElement.quantity)
-            }$('#net-total').text(total.toFixed(2));
-            $('#sub-total').text(calculateDiscountedPrice(total , $('#discount').val()).toFixed(2));
-            itemClear();
-            return;
         }
+
+        let order_obj = new OrderDetailsModel(itemId, itemQuantity, unitPrice, description);
+
+        orderDetailsArr.push(order_obj);
+
+        $('#cart-table').empty();
+
+        for (const orderDetailsArrElement of orderDetailsArr) {
+            let record = `<tr><td class="item_id">${orderDetailsArrElement.itemId}</td><td class="Description">${orderDetailsArrElement.description}</td><td class="unit_price">${orderDetailsArrElement.unitPrice}</td><td class="Qty">${orderDetailsArrElement.quantity}</td></tr>`;
+            $("#cart-table").append(record);
+        }
+
+        let total = 0;
+
+        for (const orderDetailsArrElement of orderDetailsArr) {
+            total += (orderDetailsArrElement.unitPrice * orderDetailsArrElement.quantity)
+        }
+        $('#net-total').text(total.toFixed(2));
+        $('#sub-total').text(calculateDiscountedPrice(total, $('#discount').val()).toFixed(2));
+        itemClear();
     }
-
-    let order_obj = new OrderDetailsModel(itemId, itemQuantity, unitPrice, description);
-
-    orderDetailsArr.push(order_obj);
-
-    $('#cart-table').empty();
-
-    for (const orderDetailsArrElement of orderDetailsArr) {
-        let record = `<tr><td class="item_id">${orderDetailsArrElement.itemId}</td><td class="Description">${orderDetailsArrElement.description}</td><td class="unit_price">${orderDetailsArrElement.unitPrice}</td><td class="Qty">${orderDetailsArrElement.quantity}</td></tr>`;
-        $("#cart-table").append(record);
-    }
-
-    let total = 0;
-
-    for (const orderDetailsArrElement of orderDetailsArr) {
-        total += (orderDetailsArrElement.unitPrice * orderDetailsArrElement.quantity)
-    }
-    $('#net-total').text(total.toFixed(2));
-    $('#sub-total').text(calculateDiscountedPrice(total , $('#discount').val()).toFixed(2));
-    itemClear();
-
 });
 
 $('#itemIdSelect').on('change', () => {
@@ -277,3 +279,27 @@ $('#order-delete-button').on('click', () => {
 
     orderDetailsClear();
 });
+
+function itemValidations() {
+    let item_id = $('#itemIdSelect').val();
+    let itemQuantity = $('#place_order_qty').val();
+
+    if (item_id !== "select the Item"){
+        if (itemQuantity){
+            return true;
+        }else {
+            Swal.fire({
+                icon: 'error',
+                text: 'Item QTY is Empty!',
+            })
+            return false;
+        }
+    }else {
+        Swal.fire({
+            icon: 'error',
+            text: 'Please Select Item!',
+        })
+        return false;
+    }
+
+}
