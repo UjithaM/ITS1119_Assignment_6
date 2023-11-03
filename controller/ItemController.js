@@ -3,40 +3,46 @@ import {item_db} from "../db/db.js";
 
 // item submit
 $('#item-submit').on("click", () => {
-    let item_id = $('#itemId').val();
-    let description = $('#description').val();
-    let unit_price = $('#unit-price').val();
-    let qty = $('#qty').val();
 
-    let item_obj = new ItemModel(item_id, description, unit_price, qty);
+    if (allItemValidations()){
+        let item_id = $('#itemId').val();
+        let description = $('#description').val();
+        let unit_price = $('#unit-price').val();
+        let qty = $('#qty').val();
 
-    item_db.push(item_obj);
+        let item_obj = new ItemModel(item_id, description, unit_price, qty);
+
+        item_db.push(item_obj);
 
 
-    loadItemData();
+        loadItemData();
 
-    $('#item-reset').click();
-    $('#itemId').val(genNextItemId());
+        $('#item-reset').click();
+        $('#itemId').val(genNextItemId());
+    }
 });
 
 // item update
 $('#item-update').on("click", () => {
-    let item_id = $('#itemId').val();
-    let description = $('#description').val();
-    let unit_price = $('#unit-price').val();
-    let qty = $('#qty').val();
 
-    let item_obj = new ItemModel(item_id, description, unit_price, qty);
+    if (allItemValidations()){
+        let item_id = $('#itemId').val();
+        let description = $('#description').val();
+        let unit_price = $('#unit-price').val();
+        let qty = $('#qty').val();
 
-    let index = item_db.findIndex(item => item.item_id === item_id);
+        let item_obj = new ItemModel(item_id, description, unit_price, qty);
 
-    item_db[index] = item_obj;
+        let index = item_db.findIndex(item => item.item_id === item_id);
+
+        item_db[index] = item_obj;
 
 
-    loadItemData();
+        loadItemData();
 
-    $('#item-reset').click();
-    $('#itemId').val(genNextItemId());
+        $('#item-reset').click();
+        $('#itemId').val(genNextItemId());
+    }
 });
 
 
@@ -110,3 +116,44 @@ $('#navigation-bar>li').eq(2).on('click', () => {
 $('#link-items').on('click', () => {
     itemClicked();
 })
+
+function allItemValidations() {
+    let item_id = $('#itemId').val();
+    let description = $('#description').val();
+    let unit_price = $('#unit-price').val();
+    let qty = $('#qty').val();
+
+    if (item_id) {
+        if (description){
+            if (unit_price){
+                if (qty){
+                    return true;
+                }else {
+                    Swal.fire({
+                        icon: 'error',
+                        text: 'Item QTY is Empty!',
+                    })
+                    return false;
+                }
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    text: 'Item Unit Price is Empty!',
+                })
+                return false;
+            }
+        }else {
+            Swal.fire({
+                icon: 'error',
+                text: 'Item description is Empty!',
+            })
+            return false;
+        }
+    }else{
+        Swal.fire({
+            icon: 'error',
+            text: 'Item Id is Empty!',
+        })
+        return  false;
+    }
+}
