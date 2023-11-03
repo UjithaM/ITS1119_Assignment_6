@@ -4,35 +4,42 @@ import {customer_db} from "../db/db.js";
 
 // submit
 $('#customer_submit').on("click", () => {
-    let customer_id = $('#customerId').val();
-    let full_name = $('#fullName').val();
-    let address = $('#address').val();
 
-    let customer_obj = new CustomerModel(customer_id, full_name, address);
+    if (allCustomerValidations()){
+        let customer_id = $('#customerId').val();
+        let full_name = $('#fullName').val();
+        let address = $('#address').val();
 
-    customer_db.push(customer_obj);
-    loadCustomerData();
-    $('#customer-reset').click();
-    $('#customerId').val(genNextCustomerId());
+        let customer_obj = new CustomerModel(customer_id, full_name, address);
+
+        customer_db.push(customer_obj);
+        loadCustomerData();
+        $('#customer-reset').click();
+        $('#customerId').val(genNextCustomerId());
+    }
 
 });
 
 // update
 $('#customer_update').on("click", () => {
-    let customer_id = $('#customerId').val();
-    let full_name = $('#fullName').val();
-    let address = $('#address').val();
 
-    let customer_obj = new CustomerModel(customer_id, full_name, address);
+    if (allCustomerValidations()){
+        let customer_id = $('#customerId').val();
+        let full_name = $('#fullName').val();
+        let address = $('#address').val();
 
-    let index = customer_db.findIndex(item => item.customer_id === customer_id);
+        let customer_obj = new CustomerModel(customer_id, full_name, address);
 
-    customer_db[index] = customer_obj;
+        let index = customer_db.findIndex(item => item.customer_id === customer_id);
 
-    loadCustomerData();
+        customer_db[index] = customer_obj;
 
-    $('#customer-reset').click();
-    $('#customerId').val(genNextCustomerId());
+        loadCustomerData();
+
+        $('#customer-reset').click();
+        $('#customerId').val(genNextCustomerId());
+    }
+
 
 });
 
@@ -100,3 +107,37 @@ $('#navigation-bar>li').eq(1).on('click', () => {
 $('#link-customers').on('click', () => {
     $('#customerId').val(genNextCustomerId());
 })
+
+function allCustomerValidations() {
+    let customer_id = $('#customerId').val();
+    let customer_full_name = $('#fullName').val();
+    let customer_address = $('#address').val();
+
+
+
+    if (customer_id) {
+        if (customer_full_name){
+            if (customer_address){
+                return true;
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    text: 'Customer Address is Empty!',
+                })
+                return false;
+            }
+        }else {
+            Swal.fire({
+                icon: 'error',
+                text: 'Customer Full Name is Empty!',
+            })
+            return false;
+        }
+    }else{
+        Swal.fire({
+            icon: 'error',
+            text: 'Customer Id is Empty!',
+        })
+        return  false;
+    }
+}
