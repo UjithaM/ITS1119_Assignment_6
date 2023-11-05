@@ -23,21 +23,23 @@ $('#navigation-bar>li').eq(3).on('click', () => {
     placeOrderClicked();
 });
 $('#order-place-order-button').on('click', () => {
-    let orderId = $('#order_Id').val();
-    let orderDate = $('#orderDate').val();
-    let customerId = $('#customerIdSelect').val();
-    let netTotal = $('#net-total').text();
-    let subTotal = $('#sub-total').text();
-    let discount = $('#discount').val();
-    let cash = $('#cash').val();
+
+    if (orderValidations()) {
+
+        let orderId = $('#order_Id').val();
+        let orderDate = $('#orderDate').val();
+        let customerId = $('#customerIdSelect').val();
+        let netTotal = $('#net-total').text();
+        let subTotal = $('#sub-total').text();
+        let discount = $('#discount').val();
+        let cash = $('#cash').val();
 
 
+        let order_obj = new OrderModel(orderId, orderDate, customerId, orderDetailsArr, netTotal, subTotal, discount, cash);
+        order_db.push(order_obj);
 
-    let order_obj = new OrderModel(orderId, orderDate,customerId,orderDetailsArr, netTotal, subTotal, discount, cash);
-    order_db.push(order_obj);
-
-    orderDetailsClear();
-
+        orderDetailsClear();
+    }
 });
 
 $('#add-cart-button').on('click', () => {
@@ -233,6 +235,7 @@ function orderDetailsClear() {
     $('#cash').val("");
     $('#Balance').text("0");
     $('#cart-table').empty();
+    orderDetailsArr = [];
     itemClear();
     $('#order-update-button').css('display','none');
     $('#order-delete-button').css('display','none');
@@ -254,20 +257,22 @@ $('#cart-table').on("click", "tr", function() {
 });
 
 $('#order-update-button').on('click', () => {
-    let orderId = $('#order_Id').val();
-    let orderDate = $('#orderDate').val();
-    let customerId = $('#customerIdSelect').val();
-    let netTotal = $('#net-total').text();
-    let subTotal = $('#sub-total').text();
-    let discount = $('#discount').val();
-    let cash = $('#cash').val();
+    if  (orderValidations()) {
+        let orderId = $('#order_Id').val();
+        let orderDate = $('#orderDate').val();
+        let customerId = $('#customerIdSelect').val();
+        let netTotal = $('#net-total').text();
+        let subTotal = $('#sub-total').text();
+        let discount = $('#discount').val();
+        let cash = $('#cash').val();
 
-    let order_obj = new OrderModel(orderId, orderDate,customerId,orderDetailsArr, netTotal, subTotal, discount, cash);
-    let index = order_db.findIndex(item => item.orderId === orderId);
+        let order_obj = new OrderModel(orderId, orderDate, customerId, orderDetailsArr, netTotal, subTotal, discount, cash);
+        let index = order_db.findIndex(item => item.orderId === orderId);
 
-    order_db[index] = order_obj;
+        order_db[index] = order_obj;
 
-    orderDetailsClear();
+        orderDetailsClear();
+    }
 });
 
 $('#order-delete-button').on('click', () => {
@@ -302,4 +307,35 @@ function itemValidations() {
         return false;
     }
 
+}
+
+function orderValidations() {
+    let customerId = $('#customerIdSelect').val();
+    let cash = $('#cash').val();
+
+    if (customerId !== "select the customer"){
+        if (orderDetailsArr.length !== 0){
+            if (cash){
+                return true;
+            }else {
+                Swal.fire({
+                    icon: 'error',
+                    text: 'Please input cash!',
+                })
+                return false;
+            }
+        }else {
+            Swal.fire({
+                icon: 'error',
+                text: 'Cart is Empty !',
+            })
+            return false;
+        }
+    }else {
+        Swal.fire({
+            icon: 'error',
+            text: 'Please Select Customer!',
+        })
+        return false;
+    }
 }
