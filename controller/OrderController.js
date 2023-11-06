@@ -136,6 +136,7 @@ const genNextOrderId = () => {
 }
 
 function placeOrderClicked() {
+    orderDetailsClear();
     $('#order_Id').val(genNextOrderId());
 
     let currentDate = new Date();
@@ -288,10 +289,19 @@ $('#order-delete-button').on('click', () => {
 function itemValidations() {
     let item_id = $('#itemIdSelect').val();
     let itemQuantity = $('#place_order_qty').val();
+    let itemQuantityOnHand = $('#placeOrderQtyOnHand').val();
 
     if (item_id !== "select the Item"){
         if (itemQuantity){
-            return true;
+            if (itemQuantity <= itemQuantityOnHand){
+                return true;
+            }else {
+                Swal.fire({
+                    icon: 'error',
+                    text: 'not have enough quantity !',
+                })
+                return false;
+            }
         }else {
             Swal.fire({
                 icon: 'error',
