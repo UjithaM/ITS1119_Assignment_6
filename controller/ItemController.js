@@ -1,6 +1,10 @@
 import {ItemModel} from "../model/ItemModel.js";
 import {item_db} from "../db/db.js";
 
+const itemIdPattern = /^IID-0{0,3}[1-9]\d{0,3}$/;
+const descriptionRegex = /^[A-Za-z0-9\s\-,.:;'"/()&%$@!?#]+$/;
+const digitRegex = /^\d+$/;
+
 // item submit
 $('#item-submit').on("click", () => {
 
@@ -123,37 +127,85 @@ function allItemValidations() {
     let unit_price = $('#unit-price').val();
     let qty = $('#qty').val();
 
-    if (item_id) {
-        if (description){
-            if (unit_price){
-                if (qty){
+    if (item_id && itemIdPattern.test(item_id)) {
+        if (description && descriptionRegex.test(description)){
+            if (unit_price && digitRegex.test(unit_price)){
+                if (qty && digitRegex.test(qty)){
                     return true;
                 }else {
                     Swal.fire({
                         icon: 'error',
-                        text: 'Item QTY is Empty!',
+                        text: 'Item QTY is Empty or Invalid !',
                     })
                     return false;
                 }
             } else {
                 Swal.fire({
                     icon: 'error',
-                    text: 'Item Unit Price is Empty!',
+                    text: 'Item Unit Price is Empty or Invalid !',
                 })
                 return false;
             }
         }else {
             Swal.fire({
                 icon: 'error',
-                text: 'Item description is Empty!',
+                text: 'Item description is Empty or Invalid !',
             })
             return false;
         }
     }else{
         Swal.fire({
             icon: 'error',
-            text: 'Item Id is Empty!',
+            text: 'Item Id is Empty or Invalid !',
         })
         return  false;
     }
 }
+$('#itemId').on("keyup", () => {
+    const itemId = $('#itemId').val();
+
+    const isMatch = itemIdPattern.test(itemId);
+
+    if (!isMatch) {
+        $('#itemId').addClass('is-invalid');
+    } else {
+        $('#itemId').removeClass('is-invalid');
+    }
+
+});
+$('#description').on("keyup", () => {
+    const description = $('#description').val();
+
+    const isMatch = descriptionRegex.test(description);
+
+    if (!isMatch) {
+        $('#description').addClass('is-invalid');
+    } else {
+        $('#description').removeClass('is-invalid');
+    }
+
+});
+$('#unit-price').on("keyup", () => {
+    const unitPrice = $('#unit-price').val();
+
+    const isMatch = digitRegex.test(unitPrice);
+
+    if (!isMatch) {
+        $('#unit-price').addClass('is-invalid');
+    } else {
+        $('#unit-price').removeClass('is-invalid');
+    }
+
+});
+$('#qty').on("keyup", () => {
+    const qty = $('#qty').val();
+
+    const isMatch = digitRegex.test(qty);
+
+    if (!isMatch) {
+        $('#qty').addClass('is-invalid');
+    } else {
+        $('#qty').removeClass('is-invalid');
+    }
+
+});
