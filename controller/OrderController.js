@@ -10,6 +10,8 @@ $('#place_order_unit_price').prop('disabled', true);
 $('#place_order_customer_name').prop('disabled', true);
 $('#Balance').prop('disabled', true);
 
+const orderIdPattern = /^OID-0{0,3}[1-9]\d{0,3}$/;
+const digitRegex = /^\d+$/;
 
 var orderDetailsArr =[];
 
@@ -320,32 +322,89 @@ function itemValidations() {
 }
 
 function orderValidations() {
+    let orderId = $('#order_Id').val();
     let customerId = $('#customerIdSelect').val();
     let cash = $('#cash').val();
 
-    if (customerId !== "select the customer"){
-        if (orderDetailsArr.length !== 0){
-            if (cash){
-                return true;
-            }else {
+    if (orderId && orderIdPattern.test(orderId)) {
+        if (customerId !== "select the customer") {
+            if (orderDetailsArr.length !== 0) {
+                if (cash && digitRegex.test(cash)) {
+                    return true;
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        text: 'Cash is empty or Invalid !',
+                    })
+                    return false;
+                }
+            } else {
                 Swal.fire({
                     icon: 'error',
-                    text: 'Please input cash!',
+                    text: 'Cart is Empty !',
                 })
                 return false;
             }
-        }else {
+        } else {
             Swal.fire({
                 icon: 'error',
-                text: 'Cart is Empty !',
+                text: 'Please Select Customer!',
             })
             return false;
         }
     }else {
         Swal.fire({
             icon: 'error',
-            text: 'Please Select Customer!',
+            text: 'Customer Id is empty or Invalid !',
         })
         return false;
     }
 }
+$('#order_Id').on("keyup", () => {
+    const orderId = $('#order_Id').val();
+
+    const isMatch = orderIdPattern.test(orderId);
+
+    if (!isMatch) {
+        $('#order_Id').addClass('is-invalid');
+    } else {
+        $('#order_Id').removeClass('is-invalid');
+    }
+
+});
+$('#place_order_qty').on("keyup", () => {
+    const qty = $('#place_order_qty').val();
+
+    const isMatch = digitRegex.test(qty);
+
+    if (!isMatch) {
+        $('#place_order_qty').addClass('is-invalid');
+    } else {
+        $('#place_order_qty').removeClass('is-invalid');
+    }
+
+});
+$('#discount').on("keyup", () => {
+    const discount = $('#discount').val();
+
+    const isMatch = digitRegex.test(discount);
+
+    if (!isMatch) {
+        $('#discount').addClass('is-invalid');
+    } else {
+        $('#discount').removeClass('is-invalid');
+    }
+
+});
+$('#cash').on("keyup", () => {
+    const cash = $('#cash').val();
+
+    const isMatch = digitRegex.test(cash);
+
+    if (!isMatch) {
+        $('#cash').addClass('is-invalid');
+    } else {
+        $('#cash').removeClass('is-invalid');
+    }
+
+});
