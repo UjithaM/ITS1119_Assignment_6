@@ -2,6 +2,11 @@ import {CustomerModel} from "../model/CustomerModel.js";
 import {customer_db} from "../db/db.js";
 
 
+const customerIdPattern = /^CID-0{0,3}[1-9]\d{0,3}$/;
+const nameRegex = /^[A-Za-z-' ]{2,}$/;
+const addressRegex = /^[A-Za-z0-9\s.,'-]+$/;
+
+
 // submit
 $('#customer_submit').on("click", () => {
 
@@ -115,29 +120,68 @@ function allCustomerValidations() {
 
 
 
-    if (customer_id) {
-        if (customer_full_name){
-            if (customer_address){
+    if (customer_id && customerIdPattern.test(customer_id)) {
+        if (customer_full_name && nameRegex.test(customer_full_name)){
+            if (customer_address && addressRegex.test(customer_address)){
                 return true;
             } else {
                 Swal.fire({
                     icon: 'error',
-                    text: 'Customer Address is Empty!',
+                    text: 'Customer Address is Empty or or Invalid!',
                 })
                 return false;
             }
         }else {
             Swal.fire({
                 icon: 'error',
-                text: 'Customer Full Name is Empty!',
+                text: 'Customer Full Name is Empty or Invalid!',
             })
             return false;
         }
     }else{
         Swal.fire({
             icon: 'error',
-            text: 'Customer Id is Empty!',
+            text: 'Customer Id is Empty or Invalid !',
         })
         return  false;
     }
 }
+
+$('#customerId').on("keyup", () => {
+    const customerId = $('#customerId').val();
+
+    const isMatch = customerIdPattern.test(customerId);
+
+    if (!isMatch) {
+        $('#customerId').addClass('is-invalid');
+    } else {
+        $('#customerId').removeClass('is-invalid');
+    }
+
+});
+
+$('#fullName').on("keyup", () => {
+    const fullName = $('#fullName').val();
+
+    const isMatch = nameRegex.test(fullName);
+
+    if (!isMatch) {
+        $('#fullName').addClass('is-invalid');
+    } else {
+        $('#fullName').removeClass('is-invalid');
+    }
+
+});
+
+$('#address').on("keyup", () => {
+    const address = $('#address').val();
+
+    const isMatch = addressRegex.test(address);
+
+    if (!isMatch) {
+        $('#address').addClass('is-invalid');
+    } else {
+        $('#address').removeClass('is-invalid');
+    }
+
+});
