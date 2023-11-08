@@ -40,6 +40,15 @@ $('#order-place-order-button').on('click', () => {
         let order_obj = new OrderModel(orderId, orderDate, customerId, orderDetailsArr, netTotal, subTotal, discount, cash);
         order_db.push(order_obj);
 
+        for (const items of orderDetailsArr) {
+            let index = item_db.findIndex(item => item.item_id === items.itemId);
+            let item = item_db[index];
+            let quantity  = parseInt(item.qty);
+            quantity -= parseInt(items.quantity);
+            item.qty = quantity;
+
+        }
+
         orderDetailsClear();
     }
 });
