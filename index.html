@@ -30,6 +30,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#place_order">Place Order</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#order-details">Order Details</a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -362,6 +365,38 @@
     </div>
 </section>
 
+<!--order details section-->
+
+
+<section id="order-details">
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col">
+                <h3 class="header">Order Details</h3>
+            </div>
+        </div>
+        <div class="order_container">
+                <div class="col col-lg-12 col-md-12 col-sm-12 col-12 d-flex flex-column align-items-end">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">Order Id</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Customer Id</th>
+                            <th scope="col">Customer Name</th>
+                            <th scope="col">Net Total</th>
+                            <th scope="col">Discount</th>
+                            <th scope="col">Sub Total</th>
+                        </tr>
+                        </thead>
+                        <tbody id="order-table"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <!--Link JS Dependencies-->
 <script src="assets/lib/bootstrap-5.1.3-dist/js/bootstrap.min.js"></script>
 <script src="assets/lib/jquery.min.js"></script>
@@ -372,6 +407,7 @@
 <script type="module" src="controller/ItemController.js"></script>
 <script type="module" src="controller/IndexController.js"></script>
 <script type="module" src="controller/OrderController.js"></script>
+<script type="module" src="controller/OrderDetailController.js"></script>
 
 </body>
 </html>
